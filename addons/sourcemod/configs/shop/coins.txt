@@ -1,0 +1,163 @@
+"Coins"
+{
+	"1004"
+	{ 
+		"name"			"«Museum» Map Coin" 
+		"price"			"100" 
+	}
+	"874"
+	{ 
+		"name"			"5 Year Veteran Coin" 
+		"price"			"200" 
+	}	
+	"969"
+	{ 
+		"name"			"10 Year Veteran Coin" 
+		"price"			"500" 
+	}
+	"1001"
+	{ 
+		"name"			"Operation Payback Challenge Coin" 
+		"price"			"100" 
+	}
+	"1002"
+	{ 
+		"name"			"Silver Operation Payback Coin" 
+		"price"			"150" 
+	}
+	"1003"
+	{ 
+		"name"			"Gold Operation Payback Coin" 
+		"price"			"200" 
+	}	
+	"1013"
+	{ 
+		"name"			"Operation Bravo Challenge Coin" 
+		"price"			"100" 
+	}
+	"1014"
+	{ 
+		"name"			"Silver Operation Bravo Coin" 
+		"price"			"200" 
+	}
+	"1015"
+	{ 
+		"name"			"Gold Operation Bravo Coin" 
+		"price"			"300" 
+	}
+	"1024"
+	{ 
+		"name"			"Operation Phoenix Challenge Coin" 
+		"price"			"300" 
+	}
+	"1025"
+	{ 
+		"name"			"Silver Operation Phoenix Coin" 
+		"price"			"400" 
+	}
+	"1026"
+	{ 
+		"name"			"Gold Operation Phoenix Coin" 
+		"price"			"500" 
+	}
+	"1028"
+	{ 
+		"name"			"Operation Breakout Challenge Coin" 
+		"price"			"300" 
+	}
+	"1029"
+	{ 
+		"name"			"Silver Operation Breakout Coin" 
+		"price"			"400" 
+	}
+	"1030"
+	{ 
+		"name"			"Gold Operation Breakout Coin" 
+		"price"			"500" 
+	}
+	"1316"
+	{ 
+		"name"			"Operation Vanguard Challenge Coin" 
+		"price"			"150" 
+	}
+	"1317"
+	{ 
+		"name"			"Silver Operation Vanguard Coin" 
+		"price"			"200" 
+	}
+	"1318"
+	{ 
+		"name"			"Gold Operation Vanguard Coin" 
+		"price"			"300" 
+	}
+	"1327"
+	{ 
+		"name"			"Operation Bloodhound Challenge Coin" 
+		"price"			"200" 
+	}
+	"1328"
+	{ 
+		"name"			"Silver Operation Bloodhound Coin" 
+		"price"			"300" 
+	}
+	"1329"
+	{ 
+		"name"			"Gold Operation Bloodhound Coin" 
+		"price"			"400" 
+	}
+	"1336"
+	{ 
+		"name"			"Operation Wildfire Challenge Coin" 
+		"price"			"200" 
+	}
+	"1337"
+	{ 
+		"name"			"Silver Operation Wildfire Coin" 
+		"price"			"300" 
+	}
+	"1338"
+	{ 
+		"name"			"Gold Operation Wildfire Coin" 
+		"price"			"400" 
+	}
+	"4353"
+	{ 
+		"name"			"Operation Hydra Challenge Coin" 
+		"price"			"200" 
+	}
+	"4354"
+	{ 
+		"name"			"Silver Operation Hydra Coin" 
+		"price"			"250" 
+	}
+	"4355"
+	{ 
+		"name"			"Gold Operation Hydra Coin" 
+		"price"			"300" 
+	}
+	"4356"
+	{ 
+		"name"			"Diamond Operation Hydra Coin" 
+		"price"			"500" 
+	}
+	"4555"
+	{ 
+		"name"			"Katowice 2019 Coin" 
+		"price"			"500" 
+	}
+	"4556"
+	{ 
+		"name"			"Katowice 2019 Silver Coin" 
+		"price"			"600" 
+	}
+	"4557"
+	{ 
+		"name"			"Katowice 2019 Gold Coin" 
+		"price"			"700" 
+	}
+	"4558"
+	{ 
+		"name"			"Katowice 2019 Diamond Coin" 
+		"price"			"1000" 
+	}	
+}

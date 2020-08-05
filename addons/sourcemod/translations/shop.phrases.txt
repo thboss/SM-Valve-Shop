@@ -1,0 +1,551 @@
+"Phrases"
+{
+	"trade_not_enough_credits"
+	{
+		"#format"   "{1:N}"
+		"en"		"{red}[Shop]{default} Player {OLIVE}{1}{default} did NOT have enough credits!"
+	}
+	"NoAccessToCommand"
+	{
+		"en"		"{red}[Shop]{default} You have no access to this command!"
+	}
+	
+	"type_price_or_cancle"
+	{
+		"en"		"{red}[Shop]{default} Type price in chat or {green}!cancel {default}to cancel trade"
+	}
+
+	"TargetNotFound"
+	{
+		"#format"   "{1:s}"
+		"en"		"{red}[Shop]{default} Target {green}{1}{default} not found!"
+	}
+
+	"select_target"
+	{
+		"en"		"Select player:"
+	}
+
+	"select_category"
+	{
+		"en"		"Select category:"
+	}
+
+	"select_item"
+	{
+		"en"		"Select item:"
+	}
+
+	"no_targets"
+	{
+		"en"		"{red}[Shop]{default} No appropriate targets!"
+	}
+
+	"target_left_game"
+	{
+		"en"		"{red}[Shop]{default} Player has left the game!"
+	}
+
+	"trans_credits_operation"
+	{
+		"en"		"Type amount of credits to transfer in the chat\nor \"cancel\" to cancel the operation!"
+	}
+
+	"TransferSuccess"
+	{
+		"#format"   "{1:i},{2:N}"
+		"en"		"{red}[Shop]{default} You have successfully sent {green}{1}{default} credits to {OLIVE}{2}{default}!"
+	}
+
+	"ReceiveSuccess"
+	{
+		"#format"   "{1:i},{2:N}"
+		"en"		"{red}[Shop]{default} You have successfully received {green}{1}{default} credits from {OLIVE}{2}{default}!"
+	}
+
+	"ReceiveCommission"
+	{
+		"#format"	"{1:i}"
+		"en"		"{red}[Shop]{default} Withholding fee: {green}{1} {default}credits"
+	}
+
+	"receive_item"
+	{
+		"#format"   "{1:N},{2:s},{3:s}"
+		"en"		"{red}[Shop]{default} You have received \"{green}{3}{default}\" to the category \"{blue}{2}{default}\" from {OLIVE}{1}{default}"
+	}
+	"trade_apply"
+	{
+		"#format"   "{1:s},{2:s},{3:N},{4:d}"
+		"en"		"{red}[Shop]{default} You have successfully sold \"{green}{1}{default}\" from category \"{blue}{2}{default}\" to player \"{OLIVE}{3}{default}\" for {green}{4}{default} credits"
+	}
+	
+	"receive_gift"
+	{
+		"#format"   "{1:N},{2:s},{3:s}"
+		"en"		"{red}[Shop]{default} Player \"{OLIVE}{1}{default}\" gift you \"{green}{2}{default}\" to category \"{blue}{3}{default}\""
+	}
+	"gift_apply"
+	{
+		"#format"   "{1:s},{2:s},{3:N}"
+		"en"		"{red}[Shop]{default} You have successfully gift \"{green}{1}{default}\" from category \"{blue}{2}{default}\" to player \"{OLIVE}{3}{default}\""
+	}
+	
+	"trade_deny"
+	{
+		"#format"   "{1:N}"
+		"en"		"{red}[Shop]{default} Player \"{OLIVE}{1}{default}\" declined your offer :("
+	}
+	"VerificationTrade"
+	{
+		"#format"   "{1:N},{2:s},{3:s},{4:i}"
+		"en"		"Player \"{1}\" wants to sell you item:\n\n\"{2}\" \nFrom the category \"{3}\" \n\nFor \"{4}\" credits"
+	}
+	"verification_credits"
+	{
+		"#format"   "{1:i}"
+		"en"		"type price in chat\nCurrent price: {1}"
+	}
+	"already_has"
+	{
+		"#format"   "{1:N}"
+		"en"		"{red}[Shop]{default} Player {OLIVE}{1}{default} already has the item!"
+	}
+
+	"no_item"
+	{
+		"en"		"{red}[Shop]{default} The item isn't exists in your inventory!"
+	}
+	"gift_free"
+	{
+		"en" "Send as gift"
+	}
+	"IncorrectCredits"
+	{
+		"en"		"{red}[Shop]{default} Incorrect amount of credits!"
+	}
+
+	"credits_being_transfered"
+	{
+		"#format"   "{1:i}"
+		"en"		"Amount of credits: {1}"
+	}
+
+	"credits_to_transfer"
+	{
+		"#format"   "{1:i}"
+		"en"		"Being sent: {1}"
+	}
+
+	"credits_to_transfer_price"
+	{
+		"#format"   "{1:i}"
+		"en"		"Transfer cost: {1}"
+	}
+
+	"credits_to_transfer_commission"
+	{
+		"#format"   "{1:i}"
+		"en"		"Commission : {1} credits"
+	}
+
+	"transfer_credits_left"
+	{
+		"#format"   "{1:i}"
+		"en"		"Remain: {1}"
+	}
+
+	"need_positive"
+	{
+		"#format"   "{1:i}"
+		"en"		"Need at least {1} credits"
+	}
+	"transfer_failed"
+	{
+		"en" "The selected player did not have time to decide"
+	}
+	"confirm"
+	{
+		"en"		"Confirm"
+	}
+
+	"cancel"
+	{
+		"en"		"Cancel"
+	}
+
+	"transfer"
+	{
+		"en"		"Trade"
+	}
+
+	"ItemTransferMenu"
+	{
+		"en"		"Trade item"
+	}
+
+	"ItemTransferMenu2"
+	{
+		"#format"   "{1:N}"
+		"en"		"Trade item\nto {1}"
+	}
+
+	"give_credits"
+	{
+		"en"		"Give credits"
+	}
+
+	"take_credits"
+	{
+		"en"		"Take credits"
+	}
+
+	"set_credits"
+	{
+		"en"		"Set credits"
+	}
+
+	"give_items"
+	{
+		"en"		"Give items"
+	}
+
+	"take_items"
+	{
+		"en"		"Take items"
+	}
+
+	"give_item_success"
+	{
+		"en"		"{red}[Shop]{default} You have successfuly gave the item!"
+	}
+
+	"take_item_success"
+	{
+		"en"		"{red}[Shop]{default} You have successfuly took the item!"
+	}
+
+	"give_credits_success"
+	{
+		"#format"   "{1:i},{2:s}"
+		"en"		"{red}[Shop]{default} You have sent {1} credits to {OLIVE}{2}{default}!"
+	}
+
+	"remove_credits_success"
+	{
+		"#format"   "{1:i},{2:s}"
+		"en"		"{red}[Shop]{default} You have took {1} credits from {OLIVE}{2}{default}!"
+	}
+
+	"set_credits_success"
+	{
+		"#format"   "{1:i},{2:s}"
+		"en"		"{red}[Shop]{default} You have set {1} credits to {OLIVE}{2}{default}!"
+	}
+
+	"set_you_credits"
+	{
+		"#format"   "{1:i}"
+		"en"		"{red}[Shop]{default} Admin has set your credits to {green}{1}{default}!"
+	}
+
+	"take_you_credits"
+	{
+		"#format"   "{1:i}"
+		"en"		"{red}[Shop]{default} Admin has took {green}{1}{default} credits!"
+	}
+
+	"give_you_credits"
+	{
+		"#format"   "{1:i}"
+		"en"		"{red}[Shop]{default} Admin has gave you {green}{1}{default} credits!"
+	}
+
+	"EmptyInventory"
+	{
+		"en"		"{red}[Shop]{default} Your inventory is empty!"
+	}
+
+	"EmptyShop"
+	{
+		"en"		"{red}[Shop]{default} Shop is empty!"
+	}
+
+	"EmptyCategory"
+	{
+		"en"		"{red}[Shop]{default} The category is empty!"
+	}
+
+	"NothingToLuck"
+	{
+		"en"		"{red}[Shop]{default} There is nothing that you can luck!"
+	}
+
+	"Looser"
+	{
+		"en"		"{red}[Shop]{default} No luck! You have got nothing :("
+	}
+
+	"Lucker"
+	{
+		"#format"   "{1:s},{2:s}"
+		"en"		"{red}[Shop]{default} You have a lucky day :) You have got \"{green}{2}{default}\" to the category \"{blue}{1}{default}\""
+	}
+
+	"ItemElapsed"
+	{
+		"#format"   "{1:s},{2:s}"
+		"en"		"{red}[Shop]{default} Item \"{green}{2}{default}\" from category \"{blue}{1}{default}\" has been elapsed!"
+	}
+
+	"trans_credits"
+	{
+		"en"		"Send credits"
+	}
+
+	"trans_credits_commision"
+	{
+		"#format"   "{1:i}"
+		"en"		"[Commission: {1}%%]"
+	}
+
+	"trans_credits_cost"
+	{
+		"#format"   "{1:i}"
+		"en"		""
+	}
+
+	"trans_credits_disabled"
+	{
+		"en"		"[Disabled]"
+	}
+
+	"luck_disabled"
+	{
+		"en"		"[Disabled]"
+	}
+
+	"try_luck"
+	{
+		"en"		"Try a luck"
+	}
+
+	"luck_credits_chance"
+	{
+		"#format"   "{1:i},{2:i}"
+		"en"		"[Chance: {2}%%|Price: {1}]"
+	}
+
+	"Type"
+	{
+		"en"		"Type"
+	}
+
+	"None"
+	{
+		"en"		"None"
+	}
+
+	"Finite"
+	{
+		"en"		"Finite"
+	}
+
+	"Togglable"
+	{
+		"en"		"Togglable"
+	}
+
+	"BuyOnly"
+	{
+		"en"		"Buy only"
+	}
+
+	"Price"
+	{
+		"en"		"Price"
+	}
+
+	"Sell Price"
+	{
+		"en"		"Sell price"
+	}
+
+	"absolute_sellprice"
+	{
+		"en"		"Timeleft's price"
+	}
+
+	"Free"
+	{
+		"en"		"Free"
+	}
+
+	"Unsaleable"
+	{
+		"en"		"Unsaleable"
+	}
+
+	"Count"
+	{
+		"en"		"Count"
+	}
+
+	"duration"
+	{
+		"en"		"Duration"
+	}
+
+	"forever"
+	{
+		"en"		"Forever"
+	}
+
+	"timeleft"
+	{
+		"en"		"Timeleft"
+	}
+
+	"You have"
+	{
+		"en"		"You have"
+	}
+
+	"MainMenuTitle"
+	{
+		"en"		"Shop"
+	}
+
+	"Shop"
+	{
+		"en"		"Shop"
+	}
+
+	"credits"
+	{
+		"#format"   "{1:i}"
+		"en"		"Credits: {1}"
+	}
+
+	"buy"
+	{
+		"en"		"Buy"
+	}
+
+	"buy_not"
+	{
+		"en"		"Buy [Not enough credits]"
+	}
+
+	"sell"
+	{
+		"en"		"Sell"
+	}
+
+	"inventory"
+	{
+		"en"		"Inventory"
+	}
+
+	"use"
+	{
+		"en"		"Use"
+	}
+
+	"ToggleOn"
+	{
+		"en"		"Use On"
+	}
+
+	"ToggleOff"
+	{
+		"en"		"Use Off"
+	}
+
+	"preview"
+	{
+		"en"		"Preview"
+	}
+
+	"preview_unavailable"
+	{
+		"en"		"Preview unavailable"
+	}
+
+	"functions"
+	{
+		"en"		"Functions"
+	}
+
+	"info"
+	{
+		"en"		"Info"
+	}
+
+	"admin_panel"
+	{
+		"en"		"Admin panel"
+	}
+
+	"Back"
+	{
+		"en"		"Back"
+	}
+
+	"Exit"
+	{
+		"en"		"Exit"
+	}
+	
+	"NotEnoughCredits"
+	{
+		"en"		"{red}[Shop] {default}Not enough credits!"
+	}
+
+	"PreviewIn"
+	{
+		"#format"   "{1:i}"
+		"en"		"{red}[Shop] {default}Preview will be available in {red}{1}{default}sec.!"
+	}
+
+	"DataLoaded"
+	{
+		"#format"   "{1:s}"
+		"en"		"{red}[Shop] {default}Your data of the shop has been loaded! Type {red}!{1}{default} to open the shop and buy items"
+	}
+
+	"DataLoaded2"
+	{
+		"en"		"{red}[Shop] {default}Your data of the shop has been loaded!"
+	}
+
+	"DataLoading"
+	{
+		"en"		"{red}[Shop] {default}Your data of the shop is being load, wait a few seconds and retry again.."
+	}
+
+	"y."
+	{
+		"en"		"y."
+	}
+
+	"d."
+	{
+		"en"		"d."
+	}
+
+	"h."
+	{
+		"en"		"h."
+	}
+
+	"m."
+	{
+		"en"		"min."
+	}
+
+	"s."
+	{
+		"en"		"sec."
+	}
+}

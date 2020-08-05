@@ -1,0 +1,23 @@
+"Settings"
+{
+	"db_prefix"	"shop_"
+	
+	"Commands"
+	{
+		"Give_Credits"		"sm_givecredits"
+		"Take_Credits"		"sm_takecredits"
+		"Set_Credits"		"sm_setcredits"
+		
+		"Main_Menu"			"sm_shop,sm_store,sm_market"
+	}
+	
+	"Count_Menu"
+	{
+		"10"			"10"
+		"100"			"100"
+		"1000"			"1000"
+		"10000"			"10000"
+		"100000"		"100000"
+		"1000000"		"1000000"
+	}
+}

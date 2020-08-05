@@ -1,0 +1,225 @@
+"Mkit"
+{
+	"3"
+	{ 
+		"name"			"Crimson Assault"
+		"price"			"224" 
+		//"luckchance"	"50"
+	}
+	"4"
+	{ 
+		"name"			"Sharpened"
+		"price"			"225" 
+		//"luckchance"	"50"
+	}
+	"5"
+	{ 
+		"name"			"Insurgency"
+		"price"			"214" 
+		//"luckchance"	"50"
+	}
+	"6"
+	{ 
+		"name"			"A*D*8"
+		"price"			"161" 
+		//"luckchance"	"50"
+	}
+	"7"
+	{ 
+		"name"			"High Noon"
+		"price"			"216" 
+		//"luckchance"	"50"
+	}
+	"8"
+	{ 
+		"name"			"Death's Head Demolition"
+		"price"			"282" 
+		//"luckchance"	"50"
+	}
+	"9"
+	{ 
+		"name"			"Desert Fire"
+		"price"			"211" 
+		//"luckchance"	"50"
+	}
+	"10"
+	{ 
+		"name"			"LNOE"
+		"price"			"208" 
+		//"luckchance"	"50"
+	}
+	"11"
+	{ 
+		"name"			"Metal"
+		"price"			"120" 
+		//"luckchance"	"50"
+	}
+	"12"
+	{ 
+		"name"			"All I Want for Christmas"
+		"price"			"221" 
+		//"luckchance"	"50"
+	}
+	"13"
+	{ 
+		"name"			"IsoRhythm"
+		"price"			"267" 
+		//"luckchance"	"50"
+	}
+	"14"
+	{ 
+		"name"			"For No Mankind"
+		"price"			"181" 
+		//"luckchance"	"50"
+	}
+	"15"
+	{ 
+		"name"			"Hotline Miami"
+		"price"			"194" 
+		//"luckchance"	"50"
+	}
+	"16"
+	{ 
+		"name"			"Total Domination"
+		"price"			"199" 
+		//"luckchance"	"50"
+	}
+	"17"
+	{ 
+		"name"			"The Talos Principle"
+		"price"			"217" 
+		//"luckchance"	"50"
+	}
+	"18"
+	{ 
+		"name"			"Battlepack"
+		"price"			"212" 
+		//"luckchance"	"50"
+	}
+	"19"
+	{ 
+		"name"			"MOLOTOV"
+		"price"			"111" 
+		//"luckchance"	"50"
+	}
+	"20"
+	{ 
+		"name"			"Uber Blasto Phone"
+		"price"			"153" 
+		//"luckchance"	"50"
+	}
+	"21"
+	{ 
+		"name"			"Hazardous Environments"
+		"price"			"212" 
+		//"luckchance"	"50"
+	}
+	"22"
+	{ 
+		"name"			"II-Headshot"
+		"price"			"121" 
+		//"luckchance"	"50"
+	}
+	"23"
+	{ 
+		"name"			"The 8-Bit Kit"
+		"price"			"110" 
+		//"luckchance"	"50"
+	}
+	"24"
+	{ 
+		"name"			"I Am"
+		"price"			"114" 
+		//"luckchance"	"50"
+	}
+	"25"
+	{ 
+		"name"			"Diamonds"
+		"price"			"100" 
+		//"luckchance"	"50"
+	}
+	"26"
+	{ 
+		"name"			"Invasion!"
+		"price"			"129" 
+		//"luckchance"	"50"
+	}
+	"27"
+	{ 
+		"name"			"Lion's Mouth"
+		"price"			"204" 
+		//"luckchance"	"50"
+	}	
+	"28"
+	{ 
+		"name"			"Sponge Fingerz"
+		"price"			"107" 
+		//"luckchance"	"50"
+	}	
+	"29"
+	{ 
+		"name"			"Disgusting"
+		"price"			"233" 
+		//"luckchance"	"50"
+	}	
+	"30"
+	{ 
+		"name"			"Java Havana Funkaloo"
+		"price"			"115" 
+		//"luckchance"	"50"
+	}	
+	"31"
+	{ 
+		"name"			"Moments CSGO"
+		"price"			"213" 
+		//"luckchance"	"50"
+	}	
+	"32"
+	{ 
+		"name"			"Aggressive"
+		"price"			"99" 
+		//"luckchance"	"50"
+	}	
+	"33"
+	{ 
+		"name"			"The Good Youth"
+		"price"			"324" 
+		//"luckchance"	"50"
+	}	
+	"34"
+	{ 
+		"name"			"FREE"
+		"price"			"96" 
+		//"luckchance"	"50"
+	}	
+	"35"
+	{ 
+		"name"			"Life's Not Out To Get You"
+		"price"			"539" 
+		//"luckchance"	"50"
+	}	
+	"36"
+	{ 
+		"name"			"Backbone"
+		"price"			"135" 
+		//"luckchance"	"50"
+	}	
+	"37"
+	{ 
+		"name"			"GLA"
+		"price"			"97" 
+		//"luckchance"	"50"
+	}	
+	"38"
+	{ 
+		"name"			"III-Arena"
+		"price"			"93" 
+		//"luckchance"	"50"
+	}	
+	"39"
+	{ 
+		"name"			"EZ4ENCE"
+		"price"			"192" 
+		//"luckchance"	"50"
+	}		
+}
