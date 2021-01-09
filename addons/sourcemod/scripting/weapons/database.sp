@@ -519,7 +519,6 @@ public void T_CreateMainTableCallback(Database database, DBResultSet results, co
 		AddWeaponColumns("knife_outdoor");
 		AddWeaponColumns("knife_canis");
 		AddWeaponColumns("knife_cord");
-		AddWeaponColumns("knife_ghost");
 		
 		char createQuery[512];
 		Format(createQuery, sizeof(createQuery), "			\

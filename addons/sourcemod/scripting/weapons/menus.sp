@@ -275,7 +275,6 @@ public int FloatMenuHandler(Menu menu, MenuAction action, int client, int select
 
 public Action FloatTimer(Handle timer, DataPack pack)
 {
-
 	ResetPack(pack);
 	int clientIndex = GetClientOfUserId(pack.ReadCell());
 	int index = pack.ReadCell();
@@ -296,7 +295,6 @@ public Action FloatTimer(Handle timer, DataPack pack)
 
 Menu CreateNameTagMenu(int client)
 {
-	
 	Menu menu = new Menu(NameTagMenuHandler);
 	
 	char buffer[128];
@@ -373,27 +371,6 @@ Menu CreateAllWeaponsMenu(int client)
 	Menu menu = new Menu(AllWeaponsMenuHandler);
 	menu.SetTitle("%T", "AllWeaponsMenuTitle", client);
 	
-	//hide ghost knife from all weapons menu//
-	
-	char name[32];
-	for (int i = 0; i < 53 ; i++)
-	{
-		Format(name, sizeof(name), "%T", g_WeaponClasses[i], client);
-		menu.AddItem(g_WeaponClasses[i], name);
-	}
-	
-	menu.ExitBackButton = true;
-	
-	return menu;
-}
-
-/*
-ORIGINAL FUNCTION
-Menu CreateAllWeaponsMenu(int client)
-{
-	Menu menu = new Menu(AllWeaponsMenuHandler);
-	menu.SetTitle("%T", "AllWeaponsMenuTitle", client);
-	
 	char name[32];
 	for (int i = 0; i < sizeof(g_WeaponClasses); i++)
 	{
@@ -405,7 +382,6 @@ Menu CreateAllWeaponsMenu(int client)
 	
 	return menu;
 }
-*/
 
 public int AllWeaponsMenuHandler(Menu menu, MenuAction action, int client, int selection)
 {
@@ -585,8 +561,6 @@ Menu CreateKnifeMenu(int client)
 	char buffer[60];
 	Format(buffer, sizeof(buffer), "%T", "OwnKnife", client);
 	menu.AddItem("0", buffer, g_iKnife[client] != 0 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
-	Format(buffer, sizeof(buffer), "%T", "weapon_knife_ghost", client);
-	menu.AddItem("53", buffer, g_iKnife[client] != 53 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);	
 	Format(buffer, sizeof(buffer), "%T", "weapon_knife_skeleton", client);
 	menu.AddItem("49", buffer, g_iKnife[client] != 49 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
 	Format(buffer, sizeof(buffer), "%T", "weapon_knife_outdoor", client);

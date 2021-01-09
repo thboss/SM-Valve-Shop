@@ -48,7 +48,6 @@ public void ReadConfig()
 		menuWeapons[k] = new Menu(WeaponsMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_DisplayItem);
 		menuWeapons[k].SetTitle("%T", g_WeaponClasses[k], LANG_SERVER);
 		menuWeapons[k].AddItem("0", "Default");
-		//menuWeapons[k].AddItem("-1", "Random");
 		menuWeapons[k].ExitBackButton = true;
 	}
 		
@@ -222,8 +221,7 @@ public ShopAction OnEquipItem(int iClient, CategoryId category_id, const char[] 
 		g_iKnife[iClient] = index;
 		char updateFields[50];
 		Format(updateFields, sizeof(updateFields), "knife = %d", index);
-		UpdatePlayerData(iClient, updateFields);		
-		//RefreshWeapon(iClient, index, index == 0);
+		UpdatePlayerData(iClient, updateFields);
 	}
 
 	Shop_ToggleClientCategoryOff(iClient, category_id);
