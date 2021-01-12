@@ -42,3 +42,16 @@ stock void FixCustomArms(int client)
 		SetEntPropString(client, Prop_Send, "m_szArmsModel", "");
 	}
 }
+
+stock void GetGroupFromItem(const char[] sItem, char[] sGroup)
+{
+	for(int x = 0; x < strlen(sItem); x++)
+	{
+		if(sItem[x] == ';') 
+		{
+			sGroup[x] = '\0';
+			break;
+		}
+		sGroup[x] = sItem[x];
+	}
+}

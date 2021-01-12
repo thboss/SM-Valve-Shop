@@ -153,21 +153,21 @@ public void Shop_Started()
 
 public bool SellCallback(int iClient, CategoryId category_id, const char[] category, ItemId item_id, const char[] sItem, ItemType type, int sell_price, int gold_sell_price)
 {
-	char sCategory[16];
+	char sGroup[16];
 
-	GetGloveCategoryFromItem(sItem, sCategory);
-	CheckToGiveGloves(iClient, sCategory);
+	GetGroupFromItem(sItem, sGroup);
+	CheckToGiveGloves(iClient, sGroup);
 	return true;				
 }
 public bool Shop_OnItemTransfer(int iClient, int iTarget, ItemId item_id)
 {
 	if(g_cCategory != Shop_GetItemCategoryId(item_id)) return true;
 
-	char sItem[16], sCategory[16];
+	char sItem[16], sGroup[16];
 
 	Shop_GetItemById(item_id, sItem, sizeof sItem);
-	GetGloveCategoryFromItem(sItem, sCategory);
-	CheckToGiveGloves(iClient, sCategory);
+	GetGroupFromItem(sItem, sGroup);
+	CheckToGiveGloves(iClient, sGroup);
 
 	return true;
 }
@@ -235,18 +235,5 @@ public Action ResetGlove(Handle hTimer, int iClient)
 			dpack.WriteCell(iClient); 
 			dpack.WriteCell(activeWeapon);
 		}
-	}
-}
-
-void GetGloveCategoryFromItem(const char[] sItem, char[] sCategory)
-{
-	for(int x = 0; x < strlen(sItem); x++)
-	{
-		if(sItem[x] == ';') 
-		{
-			sCategory[x] = '\0';
-			break;
-		}
-		sCategory[x] = sItem[x];
 	}
 }
