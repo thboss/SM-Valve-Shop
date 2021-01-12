@@ -17,13 +17,9 @@
 
 public void ReadConfig()
 {
-	if(g_smGlovesGroupIndex != null) delete g_smGlovesGroupIndex;
-	g_smGlovesGroupIndex = new StringMap();
-
+	BuildPath(Path_SM, configPath, sizeof(configPath), "configs/shop/gloves.ini");
 		
-	BuildPath(Path_SM, configPath, sizeof(configPath), "configs/gloves/gloves.cfg");
-		
-	KeyValues kv = CreateKeyValues("Gloves");
+	KeyValues kv = CreateKeyValues("gloves");
 	FileToKeyValues(kv, configPath);
 		
 	if (!KvGotoFirstSubKey(kv))
@@ -32,65 +28,50 @@ public void ReadConfig()
 		CloseHandle(kv);
 	}	
 		
-	for (int k = CS_TEAM_T; k <= CS_TEAM_CT; k++)
+	if(menuGlovesGroup != null)
 	{
-		if(menuGlovesGroup[k] != null)
-		{
-			delete menuGlovesGroup[k];
-		}
-		menuGlovesGroup[k] = new Menu(GloveMainMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_DisplayItem);
-		menuGlovesGroup[k].SetTitle("%T", "GloveMenuTitle", LANG_SERVER);
-		menuGlovesGroup[k].AddItem("0", "Default");
-		menuGlovesGroup[k].ExitBackButton = true;
+		delete menuGlovesGroup;
 	}
-		
-	int counter = 1;
-	do {
-		char name[64];
-		char index[10];
-		char group[10];
-		char team[32];
-		char temp[1];
-		char buffer[20];
-			
-		KvGetSectionName(kv, name, sizeof(name));
-		KvGetString(kv, "index", group, sizeof(group));
-		g_smGlovesGroupIndex.SetValue(group, counter);
-		KvGotoFirstSubKey(kv);
-		for (int k = CS_TEAM_T; k <= CS_TEAM_CT; k++)
+	menuGlovesGroup = new Menu(GloveMainMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_DisplayItem);
+	menuGlovesGroup.SetTitle("%T", "GloveMenuTitle", LANG_SERVER);
+	menuGlovesGroup.ExitBackButton = true;
+
+	for (int i = 1; i < sizeof(g_GlovesGroupIds); i++)
+	{
+		char index[2];
+
+		IntToString(i, index, sizeof(index));
+		menuGlovesGroup.AddItem(index, g_GlovesGroupNames[i-1][0]);
+
+		if(menuGloves[i] != null)
 		{
-			IntToString(counter, index, sizeof(index));
-			menuGlovesGroup[k].AddItem(index, name);
-			
-			if(menuGloves[k][counter] != null)
-			{
-				delete menuGloves[k][counter];
-			}
-			menuGloves[k][counter] = new Menu(GloveMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_DisplayItem);
-			menuGloves[k][counter].SetTitle(name);
-			Format(buffer, sizeof(buffer), "%s;-1", group);
-				
-			menuGloves[k][counter].ExitBackButton = true;
+			delete menuGloves[i];
 		}
-		do {
-			KvGetSectionName(kv, name, sizeof(name));
-			KvGetString(kv, "index", index, sizeof(index));
-			KvGetString(kv, "team", team, sizeof(team));
-			for (int k = CS_TEAM_T; k <= CS_TEAM_CT; k++)
-			{
-				IntToString(k, temp, sizeof(temp));
-				
-				if(StrContains(team, temp) > -1)
-				{
-					Format(buffer, sizeof(buffer), "%s;%s", group, index);
-					menuGloves[k][counter].AddItem(buffer, name);
-				}
-			}
-		} while (KvGotoNextKey(kv));
-		KvGoBack(kv);
-		counter++;
-	} while (KvGotoNextKey(kv));
 		
+		menuGloves[i] = new Menu(GloveMenuHandler, MENU_ACTIONS_DEFAULT|MenuAction_DisplayItem);
+		menuGloves[i].SetTitle(g_GlovesGroupNames[i-1][0]);
+		menuGloves[i].ExitBackButton = true;
+
+		KvGotoFirstSubKey(kv);
+
+		do {
+			char name[64], groupid[10], gloveid[10], buffer[20];
+
+			KvGetSectionName(kv, name, sizeof(name));
+			KvGetString(kv, "groupid", groupid, sizeof(groupid));
+			KvGetString(kv, "id", gloveid, sizeof(gloveid));
+			
+			if(StrContains(g_GlovesGroupIds[i-1][0], groupid) > -1)
+			{
+				Format(buffer, sizeof(buffer), "%s;%s", groupid, gloveid);
+				menuGloves[i].AddItem(buffer, name);
+			}
+
+		} while (KvGotoNextKey(kv));
+
+		KvRewind(kv);
+	}
+
 	CloseHandle(kv);
 }
 
@@ -170,81 +151,33 @@ public void Shop_Started()
 	delete hKv;
 }
 
-public Action Shop_OnItemDraw(int iClient, ShopMenu menu_action, CategoryId category_id, ItemId item_id, bool &disable)
+public bool SellCallback(int iClient, CategoryId category_id, const char[] category, ItemId item_id, const char[] sItem, ItemType type, int sell_price, int gold_sell_price)
 {
-	int playerTeam = GetClientTeam(iClient);
-	
-	if( menu_action == Menu_Buy && g_cCategory == category_id)
-	{
-		if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT)
-		{
-			g_iTeam[iClient] = playerTeam;
-			//RequestFrame(MainMenuOpen,iClient); 
-			return Plugin_Continue;
-		}
-		else
-		{
-			g_iTeam[iClient] = CS_TEAM_CT;
-			return Plugin_Continue;
-		}
-	}
-	return Plugin_Continue;
-}
-/*
-public void MainMenuOpen(int iClient)
-{
-	menuGlovesGroup[g_iTeam[iClient]].Display(iClient, MENU_TIME_FOREVER);
-}
-*/
-public bool SellCallback(int iClient, CategoryId category_id, const char[] category, ItemId item_id, const char[] item, ItemType type, int sell_price, int gold_sell_price)
-{
-	int playerTeam = GetClientTeam(iClient);
-	if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT)
-		g_iTeam[iClient] = playerTeam;
-		
 	char sCategory[16];
-	for(int x = 0; x < strlen(item); x++)
-	{
-		if(x && item[x -1] == ';') 
-		{
-			sCategory[x] = '0';
-			break;
-		}
-		sCategory[x] = item[x];
-	}
+
+	GetGloveCategoryFromItem(sItem, sCategory);
 	CheckToGiveGloves(iClient, sCategory);
 	return true;				
 }
 public bool Shop_OnItemTransfer(int iClient, int iTarget, ItemId item_id)
 {
 	if(g_cCategory != Shop_GetItemCategoryId(item_id)) return true;
-	
-	int playerTeam = GetClientTeam(iClient);
-	if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT)
-		g_iTeam[iClient] = playerTeam;
-		
-	char sItem[16];
+
+	char sItem[16], sCategory[16];
+
 	Shop_GetItemById(item_id, sItem, sizeof sItem);
-	char sCategory[16];
-	GetGloveCategoryFromItem(sItem, strlen(sItem), sCategory);
+	GetGloveCategoryFromItem(sItem, sCategory);
 	CheckToGiveGloves(iClient, sCategory);
 
 	return true;
 }
 public ShopAction OnEquipItem(int iClient, CategoryId category_id, const char[] sCategory,ItemId item_id, const char[] sItem, bool IsOn, bool elapsed)
-{
-	int playerTeam = GetClientTeam(iClient);
-		
+{		
 	if(IsOn || elapsed)
 	{
-		if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT)
-			g_iTeam[iClient] = playerTeam;	
 		CheckToGiveGloves(iClient, sItem, true, true);
 		return Shop_UseOff;
 	}
-
-	if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT)
-		g_iTeam[iClient] = playerTeam;	
 
 	Shop_ToggleClientCategoryOff(iClient, category_id);
 	CheckToGiveGloves(iClient, sItem, _, true);
@@ -258,11 +191,6 @@ public void OnPreviewItem(int iClient, CategoryId category_id, const char[] sCat
 	{
 		g_bPreview[iClient] = true;
 
-		int playerTeam = GetClientTeam(iClient);
-
-		if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT)
-			g_iPrevieTeam[iClient] = playerTeam;	
-
 		CheckToGiveGloves(iClient, sItem, _, true);
 
 		CreateTimer(g_fPreviewDuration, RemovePreview, GetClientUserId(iClient), TIMER_FLAG_NO_MAPCHANGE);
@@ -275,7 +203,7 @@ public Action RemovePreview(Handle hTimer, int iClient)
 	if ((iClient = GetClientOfUserId(iClient)))
 	{
 		CheckToGiveGloves(iClient, g_sPreviewItem[iClient], true, true);
-		g_iPrevieTeam[iClient] = 0;
+
 		g_bPreview[iClient] = false;
 
 		GetPlayerData(iClient);
@@ -285,7 +213,7 @@ public Action RemovePreview(Handle hTimer, int iClient)
 
 public Action ResetGlove(Handle hTimer, int iClient)
 {
-	if ((iClient = GetClientOfUserId(iClient)) && g_iGloves[iClient][GetClientTeam(iClient)] != 0)
+	if ((iClient = GetClientOfUserId(iClient)) && g_iGloves[iClient] != 0)
 	{
 		int ent = GetEntPropEnt(iClient, Prop_Send, "m_hMyWearables");
 		if(ent != -1)
@@ -310,14 +238,13 @@ public Action ResetGlove(Handle hTimer, int iClient)
 	}
 }
 
-void GetGloveCategoryFromItem(const char[] sItem, int iLen, char[] sCategory)
+void GetGloveCategoryFromItem(const char[] sItem, char[] sCategory)
 {
-	LogError("sItem = %s", sItem);
-	for(int x = 0; x < iLen; x++)
+	for(int x = 0; x < strlen(sItem); x++)
 	{
 		if(sItem[x] == ';') 
 		{
-			//sCategory[x] = '0';
+			sCategory[x] = '\0';
 			break;
 		}
 		sCategory[x] = sItem[x];

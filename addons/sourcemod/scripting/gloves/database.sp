@@ -39,23 +39,17 @@ public void T_GetPlayerDataCallback(Database database, DBResultSet results, cons
 			char query[255];
 			FormatEx(query, sizeof(query), "INSERT INTO %sgloves (steamid) VALUES ('%s')", g_TablePrefix, steamid);
 			db.Query(T_InsertCallback, query);
-			g_iGroup[client][CS_TEAM_T] = 0;
-			g_iGloves[client][CS_TEAM_T] = 0;
-			g_fFloatValue[client][CS_TEAM_T] = 0.0;
-			g_iGroup[client][CS_TEAM_CT] = 0;
-			g_iGloves[client][CS_TEAM_CT] = 0;
-			g_fFloatValue[client][CS_TEAM_CT] = 0.0;
+			g_iGroup[client] = 0;
+			g_iGloves[client] = 0;
+			g_fFloatValue[client] = 0.0;
 		}
 		else
 		{
 			if(results.FetchRow())
 			{
-				for(int i = 1, j = 2; j < 4; i += 3, j++) 
-				{
-					g_iGroup[client][j] = results.FetchInt(i);
-					g_iGloves[client][j] = results.FetchInt(i + 1);
-					g_fFloatValue[client][j] = results.FetchFloat(i + 2);
-				}
+				g_iGroup[client] = results.FetchInt(1);
+				g_iGloves[client] = results.FetchInt(2);
+				g_fFloatValue[client] = results.FetchFloat(3);
 			}
 		}
 	}
@@ -98,7 +92,7 @@ public void SQLConnectCallback(Database database, const char[] error, any data)
 		char createQuery[1024];
 		char dbIdentifier[10];
 
-		Format(createQuery, sizeof(createQuery), "CREATE TABLE IF NOT EXISTS %sgloves (steamid varchar(32) NOT NULL PRIMARY KEY, t_group int(5) NOT NULL DEFAULT '0', t_glove int(5) NOT NULL DEFAULT '0', t_float decimal(3,2) NOT NULL DEFAULT '0.0', ct_group int(5) NOT NULL DEFAULT '0', ct_glove int(5) NOT NULL DEFAULT '0', ct_float decimal(3,2) NOT NULL DEFAULT '0.0')", g_TablePrefix);
+		Format(createQuery, sizeof(createQuery), "CREATE TABLE IF NOT EXISTS %sgloves (steamid varchar(32) NOT NULL PRIMARY KEY, groupid int(5) NOT NULL DEFAULT '0', gloveid int(5) NOT NULL DEFAULT '0', float_value decimal(3,2) NOT NULL DEFAULT '0.0')", g_TablePrefix);
 		
 		db.Driver.GetIdentifier(dbIdentifier, sizeof(dbIdentifier));
 		if (StrEqual(dbIdentifier, "mysql"))

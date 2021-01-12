@@ -28,44 +28,30 @@ public int GloveMenuHandler(Menu menu, MenuAction action, int client, int select
 				if(!CheckToGiveGloves(client, gloveIdStr)) return 0;
 
 				char buffer[2][10];
-				int team = GetClientTeam(client);
 				ExplodeString(gloveIdStr, ";", buffer, 2, 10);
 				int groupId = StringToInt(buffer[0]);
 				int gloveId = StringToInt(buffer[1]);
 				
-				g_iGroup[client][team] = groupId;
-				g_iGloves[client][team] = gloveId;
+				g_iGroup[client] = groupId;
+				g_iGloves[client] = gloveId;
 				char updateFields[128];
-				char teamName[4];
-				if(team == CS_TEAM_T)
-				{
-					teamName = "t";
-				}
-				else if(team == CS_TEAM_CT)
-				{
-					teamName = "ct";
-				}
-				else teamName = "ct";
 				
-				Format(updateFields, sizeof(updateFields), "%s_group = %d, %s_glove = %d", teamName, groupId, teamName, gloveId);
+				Format(updateFields, sizeof(updateFields), "groupid = %d, gloveid = %d", groupId, gloveId);
 				UpdatePlayerData(client, updateFields);
 				
-				if(team == GetClientTeam(client))
+				int activeWeapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+				if(activeWeapon != -1)
 				{
-					int activeWeapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
-					if(activeWeapon != -1)
-					{
-						SetEntPropEnt(client, Prop_Send, "m_hActiveWeapon", -1);
-					}
-					GivePlayerGloves(client);
-					if(activeWeapon != -1)
-					{
-						DataPack dpack;
-						CreateDataTimer(0.1, ResetGlovesTimer, dpack);
-						dpack.WriteCell(client);
-						dpack.WriteCell(activeWeapon);
-					}
-				}					
+					SetEntPropEnt(client, Prop_Send, "m_hActiveWeapon", -1);
+				}
+				GivePlayerGloves(client);
+				if(activeWeapon != -1)
+				{
+					DataPack dpack;
+					CreateDataTimer(0.1, ResetGlovesTimer, dpack);
+					dpack.WriteCell(client);
+					dpack.WriteCell(activeWeapon);
+				}
 
 				DataPack pack;
 				CreateDataTimer(0.5, GlovesMenuTimer, pack);
@@ -79,7 +65,7 @@ public int GloveMenuHandler(Menu menu, MenuAction action, int client, int select
 		{
 			if(IsClientInGame(client) && selection == MenuCancel_ExitBack)
 			{
-				menuGlovesGroup[g_iTeam[client]].Display(client, MENU_TIME_FOREVER);
+				menuGlovesGroup.Display(client, MENU_TIME_FOREVER);
 			}
 		}
 	}
@@ -112,49 +98,39 @@ public int GloveMainMenuHandler(Menu menu, MenuAction action, int client, int se
 				
 				if(index == 0 || index == -1)
 				{
-					int team = g_iTeam[client];
 					char updateFields[128];
-					char teamName[4];
-					g_iGroup[client][team] = index;
-					g_iGloves[client][team] = index;
-					if(team == CS_TEAM_T)
-					{
-						teamName = "t";
-					}
-					else if(team == CS_TEAM_CT)
-					{
-						teamName = "ct";
-					}
-					Format(updateFields, sizeof(updateFields), "%s_group = %d, %s_glove = %d", teamName, index, teamName, index);
+					g_iGroup[client] = index;
+					g_iGloves[client] = index;
+
+					Format(updateFields, sizeof(updateFields), "groupid = %d, gloveid = %d", index, index);
 					UpdatePlayerData(client, updateFields);
 					
-					if(team == GetClientTeam(client))
+					int activeWeapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+					if(activeWeapon != -1)
 					{
-						int activeWeapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
-						if(activeWeapon != -1)
+						SetEntPropEnt(client, Prop_Send, "m_hActiveWeapon", -1);
+					}
+
+					if(index == 0)
+					{
+						int ent = GetEntPropEnt(client, Prop_Send, "m_hMyWearables");
+						if(ent != -1)
 						{
-							SetEntPropEnt(client, Prop_Send, "m_hActiveWeapon", -1);
+							AcceptEntityInput(ent, "KillHierarchy");
 						}
-						if(index == 0)
-						{
-							int ent = GetEntPropEnt(client, Prop_Send, "m_hMyWearables");
-							if(ent != -1)
-							{
-								AcceptEntityInput(ent, "KillHierarchy");
-							}
-							SetEntPropString(client, Prop_Send, "m_szArmsModel", g_CustomArms[client][team]);
-						}
-						else
-						{
-							GivePlayerGloves(client);
-						}
-						if(activeWeapon != -1)
-						{
-							DataPack dpack;
-							CreateDataTimer(0.1, ResetGlovesTimer, dpack);
-							dpack.WriteCell(client);
-							dpack.WriteCell(activeWeapon);
-						}
+						SetEntPropString(client, Prop_Send, "m_szArmsModel", g_CustomArms[client]);
+					}
+					else
+					{
+						GivePlayerGloves(client);
+					}
+
+					if(activeWeapon != -1)
+					{
+						DataPack dpack;
+						CreateDataTimer(0.1, ResetGlovesTimer, dpack);
+						dpack.WriteCell(client);
+						dpack.WriteCell(activeWeapon);
 					}
 					
 					DataPack pack;
@@ -165,7 +141,7 @@ public int GloveMainMenuHandler(Menu menu, MenuAction action, int client, int se
 				}
 				else
 				{
-					menuGloves[g_iTeam[client]][index].Display(client, MENU_TIME_FOREVER);
+					menuGloves[index].Display(client, MENU_TIME_FOREVER);
 				}
 			}
 		}
@@ -213,7 +189,7 @@ Menu CreateFloatMenu(int client)
 	char buffer[60];
 	Menu menu = new Menu(FloatMenuHandler);
 	
-	float fValue = g_fFloatValue[client][g_iTeam[client]];
+	float fValue = g_fFloatValue[client];
 	fValue = fValue * 100.0;
 	int wear = 100 - RoundFloat(fValue);
 	
@@ -242,10 +218,10 @@ public int FloatMenuHandler(Menu menu, MenuAction action, int client, int select
 				menu.GetItem(selection, buffer, sizeof(buffer));
 				if(StrEqual(buffer, "increase"))
 				{
-					g_fFloatValue[client][g_iTeam[client]] = g_fFloatValue[client][g_iTeam[client]] - g_fFloatIncrementSize;
-					if(g_fFloatValue[client][g_iTeam[client]] < 0.0)
+					g_fFloatValue[client] = g_fFloatValue[client] - g_fFloatIncrementSize;
+					if(g_fFloatValue[client] < 0.0)
 					{
-						g_fFloatValue[client][g_iTeam[client]] = 0.0;
+						g_fFloatValue[client] = 0.0;
 					}
 					if(g_FloatTimer[client] != INVALID_HANDLE)
 					{
@@ -255,15 +231,14 @@ public int FloatMenuHandler(Menu menu, MenuAction action, int client, int select
 					DataPack pack;
 					g_FloatTimer[client] = CreateDataTimer(2.0, FloatTimer, pack);
 					pack.WriteCell(client);
-					pack.WriteCell(g_iTeam[client]);
 					CreateFloatMenu(client).Display(client, MENU_TIME_FOREVER);
 				}
 				else if(StrEqual(buffer, "decrease"))
 				{
-					g_fFloatValue[client][g_iTeam[client]] = g_fFloatValue[client][g_iTeam[client]] + g_fFloatIncrementSize;
-					if(g_fFloatValue[client][g_iTeam[client]] > 1.0)
+					g_fFloatValue[client] = g_fFloatValue[client] + g_fFloatIncrementSize;
+					if(g_fFloatValue[client] > 1.0)
 					{
-						g_fFloatValue[client][g_iTeam[client]] = 1.0;
+						g_fFloatValue[client] = 1.0;
 					}
 					if(g_FloatTimer[client] != INVALID_HANDLE)
 					{
@@ -273,7 +248,6 @@ public int FloatMenuHandler(Menu menu, MenuAction action, int client, int select
 					DataPack pack;
 					g_FloatTimer[client] = CreateDataTimer(1.0, FloatTimer, pack);
 					pack.WriteCell(client);
-					pack.WriteCell(g_iTeam[client]);
 					CreateFloatMenu(client).Display(client, MENU_TIME_FOREVER);
 				}
 			}
@@ -297,25 +271,15 @@ public Action FloatTimer(Handle timer, DataPack pack)
 
 	ResetPack(pack);
 	int clientIndex = pack.ReadCell();
-	int team = pack.ReadCell();
 	
 	if(IsClientInGame(clientIndex))
 	{
 		char updateFields[30];
-		char teamName[2];
-		if(team == CS_TEAM_T)
-		{
-			teamName = "t";
-		}
-		else if(team == CS_TEAM_CT)
-		{
-			teamName = "ct";
-		}
-		Format(updateFields, sizeof(updateFields), "%s_float = %.2f", teamName, g_fFloatValue[clientIndex][team]);
+
+		Format(updateFields, sizeof(updateFields), "%sfloat_value = %.2f", g_fFloatValue[clientIndex]);
 		UpdatePlayerData(clientIndex, updateFields);
 		
-		if(team == GetClientTeam(clientIndex))
-			GivePlayerGloves(clientIndex);
+		GivePlayerGloves(clientIndex);
 		
 		g_FloatTimer[clientIndex] = INVALID_HANDLE;
 	}
@@ -330,11 +294,6 @@ public int MainMenuHandler(Menu menu, MenuAction action, int client, int selecti
 			if(IsClientInGame(client))
 			{
 				char info[10];
-				int playerTeam = GetClientTeam(client);
-				if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT && g_iGloves[client][playerTeam] != 0)
-					g_iTeam[client] = playerTeam;
-				else g_iTeam[client] = CS_TEAM_CT;
-					
 				menu.GetItem(selection, info, sizeof(info));
 				
 				if(StrEqual(info, "float"))
@@ -343,7 +302,7 @@ public int MainMenuHandler(Menu menu, MenuAction action, int client, int selecti
 				}
 				else
 				{
-					menuGlovesGroup[g_iTeam[client]].Display(client, MENU_TIME_FOREVER);
+					menuGlovesGroup.Display(client, MENU_TIME_FOREVER);
 				}
 			}
 		}
@@ -380,11 +339,9 @@ Menu CreateMainMenu(int client)
 	
 	if (g_iEnableFloat == 1 && IsPlayerAlive(client))
 	{
-		int playerTeam = GetClientTeam(client);
-		if(CS_TEAM_T <= playerTeam <= CS_TEAM_CT && g_iGloves[client][playerTeam] != 0)
+		if(g_iGloves[client] != 0)
 		{
-			g_iTeam[client] = playerTeam;
-			float fValue = g_fFloatValue[client][playerTeam];
+			float fValue = g_fFloatValue[client];
 			fValue = fValue * 100.0;
 			int wear = 100 - RoundFloat(fValue);
 			Format(buffer, sizeof(buffer), "%T%d%%", "SetFloat", client, wear);

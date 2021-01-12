@@ -15,6 +15,16 @@
  * this program. If not, see http://www.gnu.org/licenses/.
  */
 
+char g_GlovesGroupIds[][] = {
+/* 0*/ "5035", /* 1*/ "5027", /* 2*/ "5030", /* 3*/ "5032",
+/* 4*/ "5031", /* 5*/ "5034", /* 6*/ "5033", /* 7*/ "4725"
+};
+
+char g_GlovesGroupNames[][] = {
+/* 0*/ "Hydra", /* 1*/ "Bloodhound", /* 2*/ "Sport", /* 3*/ "Hand Wraps",
+/* 4*/ "Driver Gloves", /* 5*/ "Specialist", /* 6*/ "Moto", /* 7*/ "Broken Fang"
+};
+
 Database db = null;
 
 char configPath[PLATFORM_MAX_PATH];
@@ -29,7 +39,6 @@ char g_sPreviewItem[MAXPLAYERS+1][96];
 
 ConVar g_Cvar_ChatPrefix;
 char g_ChatPrefix[32];
-int g_iPrevieTeam[MAXPLAYERS+1];
 
 ConVar g_Cvar_FloatIncrementSize;
 float g_fFloatIncrementSize;
@@ -44,17 +53,14 @@ int g_iEnableFloat;
 ConVar g_Cvar_EnableWorldModel;
 int g_iEnableWorldModel;
 
-int g_iGroup[MAXPLAYERS+1][4];
-int g_iGloves[MAXPLAYERS+1][4];
-float g_fFloatValue[MAXPLAYERS+1][4];
-char g_CustomArms[MAXPLAYERS+1][4][256];
-int g_iTeam[MAXPLAYERS+1] = { 0, ... };
+int g_iGroup[MAXPLAYERS+1];
+int g_iGloves[MAXPLAYERS+1];
+float g_fFloatValue[MAXPLAYERS+1];
+char g_CustomArms[MAXPLAYERS+1][256];
 Handle g_FloatTimer[MAXPLAYERS+1] = { INVALID_HANDLE, ... };
 int g_iSteam32[MAXPLAYERS+1] = { 0, ... };
 
-Menu menuGlovesGroup[4];
+Menu menuGlovesGroup;
 
 CategoryId g_cCategory;
-Menu menuGloves[4][8];
-
-StringMap g_smGlovesGroupIndex;
+Menu menuGloves[9];

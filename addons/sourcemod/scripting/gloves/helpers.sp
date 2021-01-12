@@ -15,27 +15,6 @@
  * this program. If not, see http://www.gnu.org/licenses/.
  */
 
-stock void GetRandomSkin(int client, int team, char[] output, int outputSize, int group = -1)
-{
-	int max;
-	int random;
-	if(group != -1)
-	{
-		char groupStr[10];
-		IntToString(group, groupStr, sizeof(groupStr));
-		g_smGlovesGroupIndex.GetValue(groupStr, random);
-	}
-	else
-	{
-		max = menuGlovesGroup[team].ItemCount - 1;
-		random = GetRandomInt(2, max) - 1;
-	}
-	
-	max = menuGloves[team][random].ItemCount - 1;
-	int random2 = GetRandomInt(1, max);
-	menuGloves[team][random].GetItem(random2, output, outputSize);
-}
-
 stock bool IsValidClient(int client)
 {
 	// GetEntProp(client, Prop_Send, "m_bIsControllingBot") != 1

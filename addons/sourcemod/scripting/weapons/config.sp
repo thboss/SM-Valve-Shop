@@ -28,9 +28,9 @@ public void ReadConfig()
 		g_smWeaponDefIndex.SetValue(g_WeaponClasses[i], g_iWeaponDefIndex[i]);
 	}
 	
-	BuildPath(Path_SM, configPath, sizeof(configPath), "configs/weapons/weapons.cfg");
+	BuildPath(Path_SM, configPath, sizeof(configPath), "configs/shop/weapon_skins.ini");
 		
-	KeyValues kv = CreateKeyValues("Skins");
+	KeyValues kv = CreateKeyValues("ws");
 	FileToKeyValues(kv, configPath);
 		
 	if (!KvGotoFirstSubKey(kv))
@@ -51,7 +51,6 @@ public void ReadConfig()
 		menuWeapons[k].ExitBackButton = true;
 	}
 		
-	int counter = 0;
 	char weaponTemp[20];
 	do {
 		char name[64];
@@ -59,18 +58,17 @@ public void ReadConfig()
 		char classes[1024];
 			
 		KvGetSectionName(kv, name, sizeof(name));
-		KvGetString(kv, "classes", classes, sizeof(classes));
-		KvGetString(kv, "index", index, sizeof(index));
+		KvGetString(kv, "weapon", classes, sizeof(classes));
+		KvGetString(kv, "id", index, sizeof(index));
 			
 		for (int k = 0; k < sizeof(g_WeaponClasses); k++)
 		{
-			Format(weaponTemp, sizeof(weaponTemp), "%s;", g_WeaponClasses[k]);
+			Format(weaponTemp, sizeof(weaponTemp), g_WeaponClasses[k]);
 			if(StrContains(classes, weaponTemp) > -1)
 			{
 				menuWeapons[k].AddItem(index, name);
 			}
 		}
-		counter++;
 	} while (KvGotoNextKey(kv));
 		
 	CloseHandle(kv);

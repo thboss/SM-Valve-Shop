@@ -119,7 +119,6 @@ public Action CommandGlove(int client, int args)
 
 public void OnClientDisconnect(int iClient)
 {
-	g_iPrevieTeam[iClient] = 0; 
 	g_bPreview[iClient] = false;
 	strcopy(g_sPreviewItem[iClient], sizeof g_sPreviewItem[], "");
 }
@@ -144,8 +143,7 @@ public void OnClientPostAdminCheck(int client)
 
 public void GivePlayerGloves(int client)
 {
-	int playerTeam = GetClientTeam(client);
-	if(g_iGloves[client][playerTeam] != 0)
+	if(g_iGloves[client] != 0)
 	{
 		int ent = GetEntPropEnt(client, Prop_Send, "m_hMyWearables");
 		if(ent != -1)
@@ -157,22 +155,9 @@ public void GivePlayerGloves(int client)
 		if(ent != -1)
 		{
 			SetEntProp(ent, Prop_Send, "m_iItemIDLow", -1);
-			
-			if(g_iGloves[client][playerTeam] == -1)
-			{
-				char buffer[20];
-				char buffers[2][10];
-				GetRandomSkin(client, playerTeam, buffer, sizeof(buffer), g_iGroup[client][playerTeam]);
-				ExplodeString(buffer, ";", buffers, 2, 10);
-				SetEntProp(ent, Prop_Send, "m_iItemDefinitionIndex", StringToInt(buffers[0]));
-				SetEntProp(ent, Prop_Send,  "m_nFallbackPaintKit", StringToInt(buffers[1]));
-			}
-			else
-			{
-				SetEntProp(ent, Prop_Send, "m_iItemDefinitionIndex", g_iGroup[client][playerTeam]);
-				SetEntProp(ent, Prop_Send,  "m_nFallbackPaintKit", g_iGloves[client][playerTeam]);
-			}
-			SetEntPropFloat(ent, Prop_Send, "m_flFallbackWear", g_fFloatValue[client][playerTeam]);
+			SetEntProp(ent, Prop_Send, "m_iItemDefinitionIndex", g_iGroup[client]);
+			SetEntProp(ent, Prop_Send,  "m_nFallbackPaintKit", g_iGloves[client]);
+			SetEntPropFloat(ent, Prop_Send, "m_flFallbackWear", g_fFloatValue[client]);
 			SetEntPropEnt(ent, Prop_Data, "m_hOwnerEntity", client);
 			SetEntPropEnt(ent, Prop_Data, "m_hParent", client);
 			if(g_iEnableWorldModel) SetEntPropEnt(ent, Prop_Data, "m_hMoveParent", client);
@@ -188,8 +173,6 @@ public void GivePlayerGloves(int client)
 
 bool CheckToGiveGloves(int iClient, const char[] sInfo, bool bOff = false, bool bFromShop = false)
 {
-	int team = g_bPreview[iClient] ? g_iPrevieTeam[iClient]:g_iTeam[iClient];
-
 	char buffer[2][10];
 	ExplodeString(sInfo, ";", buffer, 2, 10);
 	int groupId = StringToInt(buffer[0]);
@@ -205,56 +188,44 @@ bool CheckToGiveGloves(int iClient, const char[] sInfo, bool bOff = false, bool 
 		}
 	}
 	
-	g_iGroup[iClient][team] = groupId;
-	g_iGloves[iClient][team] = gloveId;
+	g_iGroup[iClient] = groupId;
+	g_iGloves[iClient] = gloveId;
 	char updateFields[128];
-	char teamName[4];
-	if(team == CS_TEAM_T)
-	{
-		teamName = "t";
-	}
-	else if(team == CS_TEAM_CT)
-	{
-		teamName = "ct";
-	}
 
 	if (!g_bPreview[iClient])
 	{
-		Format(updateFields, sizeof(updateFields), "%s_group = %d, %s_glove = %d", teamName, groupId, teamName, gloveId);
+		Format(updateFields, sizeof(updateFields), "groupid = %d, gloveid = %d", groupId, gloveId);
 		UpdatePlayerData(iClient, updateFields);
 	}
 	
-	if(team == GetClientTeam(iClient))
+	int activeWeapon = GetEntPropEnt(iClient, Prop_Send, "m_hActiveWeapon");
+
+	if(activeWeapon != -1)
 	{
-		int activeWeapon = GetEntPropEnt(iClient, Prop_Send, "m_hActiveWeapon");
-		if(activeWeapon != -1)
-		{
-			SetEntPropEnt(iClient, Prop_Send, "m_hActiveWeapon", -1);
-		}
-		if(gloveId == 0)
-		{
-			int ent = GetEntPropEnt(iClient, Prop_Send, "m_hMyWearables");
-			if(ent != -1)
-			{
-				AcceptEntityInput(ent, "KillHierarchy");
-			}
-			SetEntPropString(iClient, Prop_Send, "m_szArmsModel", g_CustomArms[iClient][team]);
-		}
-		GivePlayerGloves(iClient);
-		if(activeWeapon != -1)
-		{
-			DataPack dpack;
-			CreateDataTimer(0.1, ResetGlovesTimer, dpack);
-			dpack.WriteCell(iClient);
-			dpack.WriteCell(activeWeapon);
-		}
+		SetEntPropEnt(iClient, Prop_Send, "m_hActiveWeapon", -1);
 	}
+
+	if(gloveId == 0)
+	{
+		int ent = GetEntPropEnt(iClient, Prop_Send, "m_hMyWearables");
+
+		if(ent != -1)
+		{
+			AcceptEntityInput(ent, "KillHierarchy");
+		}
+
+		SetEntPropString(iClient, Prop_Send, "m_szArmsModel", g_CustomArms[iClient]);
+	}
+
+	GivePlayerGloves(iClient);
+
+	if(activeWeapon != -1)
+	{
+		DataPack dpack;
+		CreateDataTimer(0.1, ResetGlovesTimer, dpack);
+		dpack.WriteCell(iClient);
+		dpack.WriteCell(activeWeapon);
+	}
+
 	return true;
-	/*
-	DataPack pack;
-	CreateDataTimer(0.5, GlovesMenuTimer, pack);
-	pack.WriteCell(menu);
-	pack.WriteCell(iClient);
-	pack.WriteCell(GetMenuSelectionPosition());
-	*/
 }
