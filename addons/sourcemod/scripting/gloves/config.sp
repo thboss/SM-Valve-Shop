@@ -36,7 +36,7 @@ public void ReadConfig()
 	menuGlovesGroup.SetTitle("%T", "GloveMenuTitle", LANG_SERVER);
 	menuGlovesGroup.ExitBackButton = true;
 
-	for (int i = 1; i < sizeof(g_GlovesGroupIds); i++)
+	for (int i = 1; i <= sizeof(g_GlovesGroupIds); i++)
 	{
 		char index[2];
 
