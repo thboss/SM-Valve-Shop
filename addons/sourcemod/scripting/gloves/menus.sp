@@ -164,7 +164,7 @@ public int GloveMainMenuHandler(Menu menu, MenuAction action, int client, int se
 		{
 			if(IsClientInGame(client) && selection == MenuCancel_ExitBack)
 			{
-				RequestFrame(ShowCategory, client);
+				Shop_ShowCategory(client);
 			}	
 		}
 	}
@@ -268,7 +268,6 @@ public int FloatMenuHandler(Menu menu, MenuAction action, int client, int select
 
 public Action FloatTimer(Handle timer, DataPack pack)
 {
-
 	ResetPack(pack);
 	int clientIndex = pack.ReadCell();
 	
@@ -276,7 +275,7 @@ public Action FloatTimer(Handle timer, DataPack pack)
 	{
 		char updateFields[30];
 
-		Format(updateFields, sizeof(updateFields), "%sfloat_value = %.2f", g_fFloatValue[clientIndex]);
+		Format(updateFields, sizeof(updateFields), "float_value = %.2f", g_fFloatValue[clientIndex]);
 		UpdatePlayerData(clientIndex, updateFields);
 		
 		GivePlayerGloves(clientIndex);
@@ -318,11 +317,6 @@ public int MainMenuHandler(Menu menu, MenuAction action, int client, int selecti
 			delete menu;
 		}
 	}
-}
-
-public void ShowCategory(int iClient)
-{
-	Shop_ShowCategory(iClient);
 }
 
 Menu CreateMainMenu(int client)
