@@ -266,19 +266,18 @@ void RefreshWeapon(int client, int index, bool defaultKnife = false)
 	}
 }
 
-bool CheckToSetWeapon(int client, int index, int skinId, bool bFromShop = false)
+bool CheckToSetWeapon(int client, int index, int skinId, bool bFromShop = false, bool isVIP = false)
 {
-	ItemId item;
 	char szShopItem[32];
 
 	FormatEx(szShopItem, sizeof szShopItem, "%d_%d", skinId, index);
-	item = Shop_GetItemId(g_cCategory, szShopItem);
+	ItemId item = Shop_GetItemId(g_cCategory, szShopItem);
 
-	if(item > INVALID_ITEM && !g_bPreview[client] && !bFromShop)
+	if(item > INVALID_ITEM && !g_bPreview[client] && !isVIP)
 	{
-		if(!Shop_IsClientHasItem(client, item))
+		if(!bFromShop || !Shop_IsClientHasItem(client, item))
 		{
-			Shop_ShowItemPanel(client,item);
+			Shop_ShowItemPanel(client, item);
 			return false;
 		}
 	}

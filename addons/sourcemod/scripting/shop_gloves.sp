@@ -174,7 +174,7 @@ public void GivePlayerGloves(int client)
 	}
 }
 
-bool CheckToGiveGloves(int iClient, const char[] sInfo, bool bOff = false, bool bFromShop = false)
+bool CheckToGiveGloves(int iClient, const char[] sInfo, bool bOff = false, bool bFromShop = false, bool isVIP = false)
 {
 	char buffer[2][10];
 	ExplodeString(sInfo, ";", buffer, 2, 10);
@@ -182,11 +182,11 @@ bool CheckToGiveGloves(int iClient, const char[] sInfo, bool bOff = false, bool 
 	int gloveId = bOff ? 0 : StringToInt(buffer[1]);
 
 	ItemId item = Shop_GetItemId(g_cCategory, sInfo);
-	if(item > INVALID_ITEM && !g_bPreview[iClient] && !bFromShop)
+	if(item > INVALID_ITEM && !g_bPreview[iClient] && !isVIP)
 	{
-		if(!Shop_IsClientHasItem(iClient, item))
+		if(!bFromShop || !Shop_IsClientHasItem(iClient, item))
 		{
-			Shop_ShowItemPanel(iClient,item);
+			Shop_ShowItemPanel(iClient, item);
 			return false;
 		}
 	}
