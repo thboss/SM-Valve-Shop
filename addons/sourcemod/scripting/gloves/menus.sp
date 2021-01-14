@@ -23,9 +23,15 @@ public int GloveMenuHandler(Menu menu, MenuAction action, int client, int select
 		{
 			if(IsClientInGame(client))
 			{				
-				char gloveIdStr[20];
+				char gloveIdStr[20], vipGroup[32];
+				bool isVIP;
+
+				VIP_GetClientVIPGroup(client, vipGroup, sizeof(vipGroup));
+				isVIP = StrContains(g_VIPGroups, vipGroup) > -1;
+
 				menu.GetItem(selection, gloveIdStr, sizeof(gloveIdStr));
-				if(!CheckToGiveGloves(client, gloveIdStr)) return 0;
+
+				if(!CheckToGiveGloves(client, gloveIdStr,_, isVIP)) return 0;
 
 				char buffer[2][10];
 				ExplodeString(gloveIdStr, ";", buffer, 2, 10);

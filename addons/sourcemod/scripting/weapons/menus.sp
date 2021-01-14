@@ -25,10 +25,15 @@ public int WeaponsMenuHandler(Menu menu, MenuAction action, int client, int sele
 			{
 				int index = g_iIndex[client];
 				
-				char skinIdStr[32];
+				char skinIdStr[32], vipGroup[32];
+				bool isVIP;
+
+				VIP_GetClientVIPGroup(client, vipGroup, sizeof(vipGroup));
+				isVIP = StrContains(g_VIPGroups, vipGroup) > -1;
+
 				menu.GetItem(selection, skinIdStr, sizeof(skinIdStr));
 				int skinId = StringToInt(skinIdStr);
-				if(!CheckToSetWeapon(client, g_iIndex[client], skinId)) return 0;
+				if(!CheckToSetWeapon(client, g_iIndex[client], skinId, isVIP)) return 0;
 				g_iSkins[client][index] = skinId;
 				char updateFields[256];
 				char weaponName[32];

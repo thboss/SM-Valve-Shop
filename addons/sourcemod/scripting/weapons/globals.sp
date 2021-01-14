@@ -100,3 +100,6 @@ CategoryId g_cCategory;
 
 StringMap g_smWeaponIndex;
 StringMap g_smWeaponDefIndex;
+
+ConVar g_Cvar_VIPGroups;
+char g_VIPGroups[256];

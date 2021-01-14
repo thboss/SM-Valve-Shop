@@ -64,3 +64,6 @@ Menu menuGlovesGroup;
 
 CategoryId g_cCategory;
 Menu menuGloves[9];
+
+ConVar g_Cvar_VIPGroups;
+char g_VIPGroups[256];

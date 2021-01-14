@@ -18,6 +18,7 @@
 #include <sdktools>
 #include <cstrike>
 #include <shop>
+#include <vip_core>
 
 #pragma semicolon 1
 #pragma newdecls required
@@ -43,12 +44,13 @@ public void OnPluginStart()
 {
 	LoadTranslations("gloves.phrases");
 	
-	g_Cvar_DBConnection = CreateConVar("sm_gloves_db_connection", "shop", "Database connection name in databases.cfg to use");
+	g_Cvar_DBConnection = CreateConVar("sm_gloves_db_connection", "gloves", "Database connection name in databases.cfg to use");
 	g_Cvar_TablePrefix = CreateConVar("sm_gloves_table_prefix", "shop_", "Prefix for database table (example: 'xyz_')");
 	g_Cvar_ChatPrefix = CreateConVar("sm_gloves_chat_prefix", "[GLOVES]", "Prefix for chat messages");
 	g_Cvar_EnableFloat = CreateConVar("sm_gloves_enable_float", "1", "Enable/Disable gloves float options");
 	g_Cvar_FloatIncrementSize = CreateConVar("sm_gloves_float_increment_size", "0.1", "Increase/Decrease by value for gloves float");
 	g_Cvar_EnableWorldModel = CreateConVar("sm_gloves_enable_world_model", "1", "Enable/Disable gloves to be seen by other living players");
+	g_Cvar_VIPGroups = CreateConVar("sm_gloves_vip_groups", "", "VIP Groups that get skins for free");
 	
 	AutoExecConfig(true, "shop_gloves", "shop");
 
@@ -88,6 +90,7 @@ public void OnConfigsExecuted()
 	g_fFloatIncrementSize = g_Cvar_FloatIncrementSize.FloatValue;
 	g_iFloatIncrementPercentage = RoundFloat(g_fFloatIncrementSize * 100.0);
 	g_iEnableWorldModel = g_Cvar_EnableWorldModel.IntValue;
+	g_Cvar_VIPGroups.GetString(g_VIPGroups, sizeof(g_VIPGroups));
 	ReadConfig();
 }
 
@@ -179,9 +182,9 @@ bool CheckToGiveGloves(int iClient, const char[] sInfo, bool bOff = false, bool 
 	int gloveId = bOff ? 0 : StringToInt(buffer[1]);
 
 	ItemId item = Shop_GetItemId(g_cCategory, sInfo);
-	if(item > INVALID_ITEM && !g_bPreview[iClient])
+	if(item > INVALID_ITEM && !g_bPreview[iClient] && !bFromShop)
 	{
-		if(!bFromShop || !Shop_IsClientHasItem(iClient, item))
+		if(!Shop_IsClientHasItem(iClient, item))
 		{
 			Shop_ShowItemPanel(iClient,item);
 			return false;

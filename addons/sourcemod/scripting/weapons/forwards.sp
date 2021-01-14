@@ -47,6 +47,7 @@ public void OnConfigsExecuted()
 	g_iFloatIncrementPercentage = RoundFloat(g_fFloatIncrementSize * 100.0);
 	g_bOverwriteEnabled = g_Cvar_EnableWeaponOverwrite.BoolValue;
 	g_iGracePeriod = g_Cvar_GracePeriod.IntValue;
+	g_Cvar_VIPGroups.GetString(g_VIPGroups, sizeof(g_VIPGroups));
 	if(g_iGracePeriod > 0)
 	{
 		HookEvent("round_start", OnRoundStart, EventHookMode_PostNoCopy);

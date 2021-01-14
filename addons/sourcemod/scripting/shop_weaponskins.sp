@@ -18,6 +18,7 @@
 #include <cstrike>
 #include <PTaH>
 #include <shop>
+#include <vip_core>
 
 #pragma semicolon 1
 #pragma newdecls required
@@ -58,7 +59,7 @@ public void OnPluginStart()
 	
 	LoadTranslations("weapons.phrases");
 	
-	g_Cvar_DBConnection 			= CreateConVar("sm_weapons_db_connection", 			"shop", 	"Database connection name in databases.cfg to use");
+	g_Cvar_DBConnection 			= CreateConVar("sm_weapons_db_connection", 			"weapons", 	"Database connection name in databases.cfg to use");
 	g_Cvar_TablePrefix 				= CreateConVar("sm_weapons_table_prefix", 			"shop_", 				"Prefix for database table (example: 'xyz_')");
 	g_Cvar_ChatPrefix 				= CreateConVar("sm_weapons_chat_prefix", 			"[WEAPON SKINS]", 	"Prefix for chat messages");
 	g_Cvar_KnifeStatTrakMode 		= CreateConVar("sm_weapons_knife_stattrak_mode", 	"0", 				"0: All knives show the same StatTrak counter (total knife kills) 1: Each type of knife shows its own separate StatTrak counter");
@@ -69,6 +70,7 @@ public void OnPluginStart()
 	g_Cvar_EnableWeaponOverwrite 	= CreateConVar("sm_weapons_enable_overwrite", 		"1", 				"Enable/Disable players overwriting other players' weapons (picked up from the ground) by using !ws command");
 	g_Cvar_GracePeriod 				= CreateConVar("sm_weapons_grace_period", 			"0", 				"Grace period in terms of seconds counted after round start for allowing the use of !ws command. 0 means no restrictions");
 	g_Cvar_InactiveDays 			= CreateConVar("sm_weapons_inactive_days", 			"0", 				"Number of days before a player (SteamID) is marked as inactive and his data is deleted. (0 or any negative value to disable deleting)");
+	g_Cvar_VIPGroups 				= CreateConVar("sm_weapons_vip_groups", "", "VIP Groups that get skins for free");
 	
 	AutoExecConfig(true, "shop_weaponskins", "shop");
 	
@@ -272,9 +274,9 @@ bool CheckToSetWeapon(int client, int index, int skinId, bool bFromShop = false)
 	FormatEx(szShopItem, sizeof szShopItem, "%d_%d", skinId, index);
 	item = Shop_GetItemId(g_cCategory, szShopItem);
 
-	if(item > INVALID_ITEM && !g_bPreview[client])
+	if(item > INVALID_ITEM && !g_bPreview[client] && !bFromShop)
 	{
-		if(!bFromShop || !Shop_IsClientHasItem(client, item))
+		if(!Shop_IsClientHasItem(client, item))
 		{
 			Shop_ShowItemPanel(client,item);
 			return false;
