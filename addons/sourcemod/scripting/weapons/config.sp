@@ -50,8 +50,7 @@ public void ReadConfig()
 		menuWeapons[k].AddItem("0", "Default");
 		menuWeapons[k].ExitBackButton = true;
 	}
-		
-	char weaponTemp[20];
+
 	do {
 		char name[64];
 		char index[4];
@@ -63,8 +62,7 @@ public void ReadConfig()
 			
 		for (int k = 0; k < sizeof(g_WeaponClasses); k++)
 		{
-			Format(weaponTemp, sizeof(weaponTemp), g_WeaponClasses[k]);
-			if(StrContains(classes, weaponTemp) > -1)
+			if(StrEqual(classes, g_WeaponClasses[k]))
 			{
 				menuWeapons[k].AddItem(index, name);
 			}
