@@ -44,7 +44,7 @@ public void OnPluginStart()
 {
 	LoadTranslations("gloves.phrases");
 	
-	g_Cvar_DBConnection = CreateConVar("sm_gloves_db_connection", "gloves", "Database connection name in databases.cfg to use");
+	g_Cvar_DBConnection = CreateConVar("sm_gloves_db_connection", "shop", "Database connection name in databases.cfg to use");
 	g_Cvar_TablePrefix = CreateConVar("sm_gloves_table_prefix", "shop_", "Prefix for database table (example: 'xyz_')");
 	g_Cvar_ChatPrefix = CreateConVar("sm_gloves_chat_prefix", "[GLOVES]", "Prefix for chat messages");
 	g_Cvar_EnableFloat = CreateConVar("sm_gloves_enable_float", "1", "Enable/Disable gloves float options");

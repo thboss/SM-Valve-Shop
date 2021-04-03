@@ -59,8 +59,8 @@ public void OnPluginStart()
 	
 	LoadTranslations("weapons.phrases");
 	
-	g_Cvar_DBConnection 			= CreateConVar("sm_weapons_db_connection", 			"weapons", 	"Database connection name in databases.cfg to use");
-	g_Cvar_TablePrefix 				= CreateConVar("sm_weapons_table_prefix", 			"shop_", 				"Prefix for database table (example: 'xyz_')");
+	g_Cvar_DBConnection 			= CreateConVar("sm_weapons_db_connection", 			"shop", 			"Database connection name in databases.cfg to use");
+	g_Cvar_TablePrefix 				= CreateConVar("sm_weapons_table_prefix", 			"shop_", 			"Prefix for database table (example: 'xyz_')");
 	g_Cvar_ChatPrefix 				= CreateConVar("sm_weapons_chat_prefix", 			"[WEAPON SKINS]", 	"Prefix for chat messages");
 	g_Cvar_KnifeStatTrakMode 		= CreateConVar("sm_weapons_knife_stattrak_mode", 	"0", 				"0: All knives show the same StatTrak counter (total knife kills) 1: Each type of knife shows its own separate StatTrak counter");
 	g_Cvar_EnableFloat 				= CreateConVar("sm_weapons_enable_float", 			"1", 				"Enable/Disable weapon float options");
