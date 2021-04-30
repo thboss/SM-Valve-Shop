@@ -84,6 +84,11 @@ stock bool IsKnifeClass(const char[] classname)
 	return false;
 }
 
+stock bool IsKnifeIndex(int index)
+{
+	return (index >= 33 && index <= 52);
+}
+
 stock bool IsKnife(int entity)
 {
 	char classname[32];

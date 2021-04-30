@@ -102,7 +102,6 @@ public void Shop_Started()
 	if(!hKv.ImportFromFile(szPath))	 SetFailState("Could read config file [%s]", szPath);
 
 	int iWeaponIndex;
-	int iLuckChance;
 
 	char szWeapon[32];
 	char szKey[32];
@@ -128,31 +127,8 @@ public void Shop_Started()
 
 		Shop_SetCallbacks(_, OnEquipItem, _, _, _, OnPreviewItem, _, SellCallback);
 		Shop_SetInfo(szName, szDiscription, hKv.GetNum("price",7000),  hKv.GetNum("sellprice",hKv.GetNum("price")/2), Item_Togglable, hKv.GetNum("duration", 0) );
-		
-		if(hKv.GetNum("price") > 0 && hKv.GetNum("price") <= 50)
-			iLuckChance = 30;	
-		else if(hKv.GetNum("price") > 50 && hKv.GetNum("price") <= 500)
-			iLuckChance = 20;
-		else if(hKv.GetNum("price") > 500 && hKv.GetNum("price") <= 1000)
-			iLuckChance = 10;	
-		else if(hKv.GetNum("price") > 1000 && hKv.GetNum("price") <= 2000)
-			iLuckChance = 8;
-		else if(hKv.GetNum("price") > 2000 && hKv.GetNum("price") <= 3000)
-			iLuckChance = 7;
-		else if(hKv.GetNum("price") > 3000 && hKv.GetNum("price") <= 5000)
-			iLuckChance = 6;
-		else if(hKv.GetNum("price") > 5000 && hKv.GetNum("price") <= 10000)
-			iLuckChance = 5;
-		else if(hKv.GetNum("price") > 10000 && hKv.GetNum("price") <= 15000)
-			iLuckChance = 4;
-		else if(hKv.GetNum("price") > 15000 && hKv.GetNum("price") <= 25000)
-			iLuckChance = 3;
-		else if(hKv.GetNum("price") > 25000 && hKv.GetNum("price") <= 40000)
-			iLuckChance = 2;
-		else
-			iLuckChance = 1;
 
-		Shop_SetLuckChance(hKv.GetNum("luckchance", iLuckChance));
+		Shop_SetLuckChance(hKv.GetNum("luckchance", 0));
 		Shop_EndItem();
 	}
 	while(hKv.GotoNextKey());
@@ -212,7 +188,7 @@ public ShopAction OnEquipItem(int iClient, CategoryId category_id, const char[] 
 	}
 	int index = StringToInt(sIndex);
 	int iWeaponId = StringToInt(sWeaponId);
-	if(isKnifeIndex(index))
+	if(IsKnifeIndex(index))
 	{
 		g_iKnife[iClient] = index;
 		char updateFields[50];
@@ -242,13 +218,13 @@ public void OnPreviewItem(int iClient, CategoryId category_id, const char[] sCat
 		}
 		int index = StringToInt(sIndex);
 		int iWeaponId = StringToInt(sWeaponId);
-		if(isKnifeIndex(index))
+		if(IsKnifeIndex(index))
 		{
 			g_iKnife[iClient] = index;
 		}
 
 		CheckToSetWeapon(iClient, index, iWeaponId, true);
-		if(isKnifeIndex(index))
+		if(IsKnifeIndex(index))
 		{
 			CreateTimer(g_fPreviewDuration, RemoveKnifePreview, GetClientUserId(iClient), TIMER_FLAG_NO_MAPCHANGE);
 		}
@@ -326,12 +302,4 @@ void RemoveClientSkins(int iClient, const char[] sItem)
 		UpdatePlayerData(iClient, updateFields);
 		RefreshWeapon(iClient, index);
 	}
-}
-
-bool isKnifeIndex(int i)
-{
-	return    (i == 33 || i == 34 || i == 35 || i == 36 || i == 37 
-			|| i == 38 || i == 39 || i == 40 || i == 41 || i == 42 
-			|| i == 43 || i == 44 || i == 45 || i == 46 || i == 48 
-			|| i == 49 || i == 50 || i == 51 || i == 52);
 }

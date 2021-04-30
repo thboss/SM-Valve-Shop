@@ -97,7 +97,6 @@ public void Shop_Started()
 	KeyValues hKv = new KeyValues("gloves");
 	if(!hKv.ImportFromFile(szPath))	 SetFailState("Could read config file [%s]", szPath);
 
-	int iLuckChance;
 	char szKey[32];
 	char szName[64];
 	char szDiscription[128];
@@ -121,30 +120,7 @@ public void Shop_Started()
 		Shop_SetCallbacks(_, OnEquipItem, _, _, _, OnPreviewItem, _, SellCallback);
 		Shop_SetInfo(szName, szDiscription, hKv.GetNum("price",7000),  hKv.GetNum("sellprice",hKv.GetNum("price")/2), Item_Togglable, hKv.GetNum("duration",0) );
 
-		if(hKv.GetNum("price") > 0 && hKv.GetNum("price") <= 50)
-			iLuckChance = 30;	
-		else if(hKv.GetNum("price") > 50 && hKv.GetNum("price") <= 500)
-			iLuckChance = 20;
-		else if(hKv.GetNum("price") > 500 && hKv.GetNum("price") <= 1000)
-			iLuckChance = 10;	
-		else if(hKv.GetNum("price") > 1000 && hKv.GetNum("price") <= 2000)
-			iLuckChance = 8;
-		else if(hKv.GetNum("price") > 2000 && hKv.GetNum("price") <= 3000)
-			iLuckChance = 7;
-		else if(hKv.GetNum("price") > 3000 && hKv.GetNum("price") <= 5000)
-			iLuckChance = 6;
-		else if(hKv.GetNum("price") > 5000 && hKv.GetNum("price") <= 10000)
-			iLuckChance = 5;
-		else if(hKv.GetNum("price") > 10000 && hKv.GetNum("price") <= 15000)
-			iLuckChance = 4;
-		else if(hKv.GetNum("price") > 15000 && hKv.GetNum("price") <= 25000)
-			iLuckChance = 3;
-		else if(hKv.GetNum("price") > 25000 && hKv.GetNum("price") <= 40000)
-			iLuckChance = 2;
-		else
-			iLuckChance = 1;
-
-		Shop_SetLuckChance(hKv.GetNum("luckchance", iLuckChance));		
+		Shop_SetLuckChance(hKv.GetNum("luckchance", 0));		
 		Shop_EndItem();
 	}
 	while(hKv.GotoNextKey());
