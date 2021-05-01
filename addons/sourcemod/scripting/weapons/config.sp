@@ -53,20 +53,25 @@ public void ReadConfig()
 
 	do {
 		char name[64];
-		char index[4];
-		char classes[1024];
+		char id[4];
+		char weapon[32];
+		char szKey[64];
+		int price;
 			
 		KvGetSectionName(kv, name, sizeof(name));
-		KvGetString(kv, "weapon", classes, sizeof(classes));
-		KvGetString(kv, "id", index, sizeof(index));
+		KvGetString(kv, "weapon", weapon, sizeof(weapon));
+		KvGetString(kv, "id", id, sizeof(id));
+		price = KvGetNum(kv, "price");
 			
 		for (int k = 0; k < sizeof(g_WeaponClasses); k++)
 		{
-			if(StrEqual(classes, g_WeaponClasses[k]))
+			if (StrEqual(weapon, g_WeaponClasses[k]))
 			{
-				menuWeapons[k].AddItem(index, name);
+				FormatEx(szKey, sizeof(szKey), "[%d$] %s", price, name);
+				menuWeapons[k].AddItem(id, szKey);
 			}
 		}
+
 	} while (KvGotoNextKey(kv));
 		
 	CloseHandle(kv);
@@ -76,11 +81,13 @@ public void ReadConfig()
 {
 	"skin_name"
 	{
-		"id" "594"
-		"discription" "gg"
-		"weapon" "weapon_glock"
-		"price" "10000"
-		"duraction" "65000"
+		"id" 			"594"
+		"discription" 	"gg"
+		"weapon" 		"weapon_glock"
+		"price" 		"10000"
+		"duraction" 	"65000"
+		"sellprice" 	"7000"
+		"luckchance" 	"0"
 	}
 }
 */

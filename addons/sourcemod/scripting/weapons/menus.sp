@@ -57,12 +57,7 @@ public int WeaponsMenuHandler(Menu menu, MenuAction action, int client, int sele
 				{
 					Format(display, sizeof(display), "%T", "DefaultSkin", client);
 					return RedrawMenuItem(display);
-				}
-				else if (StrEqual(info, "-1"))
-				{
-					Format(display, sizeof(display), "%T", "RandomSkin", client);
-					return RedrawMenuItem(display);
-				}				
+				}			
 			}
 		}
 		case MenuAction_Cancel:
